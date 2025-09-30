@@ -1,0 +1,47 @@
+package org.example.model;
+
+import org.example.exception.InvalidProductException;
+
+public class Product {
+    private int id;
+    private String name;
+    private String category;
+    private int quantity;
+    private double price;
+
+    public Product(int id, String name, String category, int quantity, double price) {
+        if (id <= 0 )
+            throw new InvalidProductException("❌ ID must be greater than 0.");
+        if (name == null || name.trim().isEmpty())
+            throw new InvalidProductException("❌ Name cannot be empty.");
+        if (category == null || category.trim().isEmpty())
+            throw new InvalidProductException("❌ Category cannot be empty.");
+        if (quantity < 0)
+            throw new InvalidProductException("❌ Quantity cannot be negative.");
+        if (price <= 0)
+            throw new InvalidProductException("❌ Price must be greater than 0.");
+
+        this.id = id;
+        this.name = name;
+        this.category = category;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
+    // Getters & Setters
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public String getCategory() { return category; }
+    public int getQuantity() { return quantity; }
+    public double getPrice() { return price; }
+
+    public void setName(String name) { this.name = name; }
+    public void setCategory(String category) { this.category = category; }
+    public void setQuantity(int quantity) { this.quantity = quantity; }
+    public void setPrice(double price) { this.price = price; }
+
+    @Override
+    public String toString() {
+        return id + " | " + name + " | " + category + " | " + quantity + " | " + price;
+    }
+}
