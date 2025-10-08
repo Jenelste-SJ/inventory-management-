@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.dao.UserDAO;
+import org.example.dao.UserDAOImpl;
 import org.example.exception.InvalidProductException;
 import org.example.model.Product;
 import org.example.Service.InventoryService;
@@ -9,17 +11,18 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         InventoryService service = new InventoryService();
+        UserDAOImpl userDAO = new UserDAOImpl() ;
         Scanner sc = new Scanner(System.in);
 
         while (true) {
             System.out.println("\n--- \uD83D\uDCE6Inventory Menu ---");
-            System.out.println("1. Add Product");
-            System.out.println("2. View All Products");
-            System.out.println("3. Search Product");
-            System.out.println("4. Update Product");
-            System.out.println("5. Delete Product");
-            System.out.println("6. CSV Report ");
-            System.out.println("7. Exit");
+            System.out.println("1.✚ Add Product");
+            System.out.println("2.\uD83D\uDC41\uFE0FView All Products");
+            System.out.println("3.\uD83D\uDD0ESearch Product");
+            System.out.println("4.⬆\uFE0F Update Product");
+            System.out.println("5.❌ Delete Product");
+            System.out.println("6.\uD83D\uDCC1 CSV Report ");
+            System.out.println("7.\uD83D\uDEAA Exit");
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
 
@@ -111,6 +114,10 @@ public class Main {
                     System.out.println("👋 Exiting...");
                     sc.close();
                     return;
+
+                case 8:
+                    userDAO.getUsers();
+
 
                 default:
                     System.out.println("❌ Invalid choice!");

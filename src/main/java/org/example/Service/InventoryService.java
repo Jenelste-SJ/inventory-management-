@@ -54,7 +54,7 @@ public class InventoryService {
         try {
             List<Product> p = dao.getProductByName(name);
             if (p != null) {
-                System.out.println("Product Found: " + p);
+                System.out.println("Product Found: " + p );
             } else {
                 System.out.println("⚠️ Product not found!");
             }
