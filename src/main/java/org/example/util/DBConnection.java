@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DBConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/inventoryDatabase"; // change db name
-    private static final String USER = "root";   // change
-    private static final String PASSWORD = "Clashofclans"; // change
+    private static final String URL = System.getenv("DB_URL"); // change db name
+    private static final String USER = System.getenv("DB_USERNAME");   // change
+    private static final String PASSWORD = System.getenv("DB_PASSWORD"); // change
 
     public static Connection getConnection() {
         try {

@@ -1,20 +1,23 @@
 package org.example.Service;
 
 import org.example.dao.ProductDAOImpl;
+import org.example.dao.UserDAOImpl;
 import org.example.exception.DatabaseException;
 import org.example.exception.ProductNotFoundException;
 import org.example.model.Product;
+import org.example.model.User;
 import org.example.util.CSVHelp;
 
 import java.util.List;
 
 public class InventoryService {
     public ProductDAOImpl dao = new ProductDAOImpl();
+    public UserDAOImpl userDao = new UserDAOImpl();
 
+//Products
     public void addProduct(Product p) {
         try {
             dao.addProduct(p);
-            System.out.println("✅ Product added successfully!");
         } catch (DatabaseException e) {
             System.err.println("❌ Failed to add product. Reason: " + e.getMessage());
         }
@@ -34,6 +37,7 @@ public class InventoryService {
         }
 
     }
+
 
     public void getProductById(int id) {
         try {
@@ -80,8 +84,38 @@ public class InventoryService {
         }
     }
 
-    public void updateProduct(Product p) {
+    public void getProductByPriceRange(double minPrice, double maxPrice) {
         try {
+            List<Product> p = dao.getProductByPriceRange( minPrice,maxPrice);
+            if (p != null) {
+                System.out.println("Product Found: " + p);
+            } else {
+                System.out.println("⚠️ Product not found!");
+            }
+        } catch (ProductNotFoundException e) {
+            System.err.println("⚠ " + e.getMessage());
+        } catch (DatabaseException e) {
+
+        }
+    }
+
+    public void updateProduct(int id, String name,String category, String quantity, String price) {
+        try {
+            Product p = dao.getProductById(id);
+            if (p != null && !name.trim().isEmpty()) {
+                p.setName(name);
+            }
+            if (p != null && !category.trim().isEmpty()) {
+                p.setCategory(category);
+            }
+            if (p !=null && !quantity.trim().isEmpty()){
+                int q=Integer.parseInt(quantity);
+                p.setQuantity(q);
+            }
+            if (p !=null  && !price.trim().isEmpty()){
+                int pp=Integer.parseInt(price);
+                p.setPrice(pp);
+            }
             dao.updateProduct(p);
             System.out.println("Product Updated successfully!");
         } catch (DatabaseException e) {
@@ -108,6 +142,15 @@ public class InventoryService {
             csv.exportProductsToCSV(filePath);
         } catch (Exception e) {
             System.out.println("⚠️ Could not export products: " + e.getMessage());
+        }
+    }
+
+//Users
+    public void addUser(User user) {
+        try {
+            userDao.addUser(user);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

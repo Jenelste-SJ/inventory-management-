@@ -1,12 +1,10 @@
 package org.example.dao;
 
+import org.example.exception.DatabaseException;
 import org.example.model.Product;
 import org.example.util.DBConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +25,7 @@ public class ProductDAOImpl implements ProductDAO {
             stmt.executeUpdate();
             System.out.println("✅ Product added successfully.");
         } catch (Exception e) {
-            System.out.println("❌ Error adding product: " + e.getMessage());
+            System.out.println("❌ Error adding product:\n REASON:You can't add product with an already existing ID.❗️❗️USE A DIFFERENT ID ❗️❗️  " );
         }
     }
 
@@ -123,6 +121,35 @@ public class ProductDAOImpl implements ProductDAO {
         return list;
     }
 
+    @Override
+    public List<Product> getProductByPriceRange(double minPrice, double maxPrice) throws DatabaseException {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM inventory WHERE price BETWEEN ? AND ? ORDER BY price ASC";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setDouble(1, minPrice);
+            stmt.setDouble(2, maxPrice);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Product(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("category"),
+                        rs.getInt("quantity"),
+                        rs.getDouble("price")
+                ));
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException("Error retrieving products by price range", e);
+        }
+
+        return list;
+    }
 
     @Override
     public void updateProduct(Product product) {

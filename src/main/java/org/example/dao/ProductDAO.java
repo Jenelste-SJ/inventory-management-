@@ -10,6 +10,7 @@ public interface ProductDAO {
     Product getProductById(int id);
     List<Product> getProductByName(String name);
     List<Product> getProductByCategory(String category);
+    List<Product> getProductByPriceRange(double minPrice, double maxPrice);
     void updateProduct(Product product);
     boolean deleteProduct(int id);
 }
