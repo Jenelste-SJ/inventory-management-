@@ -1,18 +1,14 @@
 package org.example.Service;
 
 import org.example.dao.ProductDAOImpl;
-import org.example.dao.UserDAOImpl;
 import org.example.exception.DatabaseException;
 import org.example.exception.ProductNotFoundException;
 import org.example.model.Product;
-import org.example.model.User;
-import org.example.util.CSVHelp;
 
 import java.util.List;
 
 public class InventoryService {
     public ProductDAOImpl dao = new ProductDAOImpl();
-    public UserDAOImpl userDao = new UserDAOImpl();
 
 //Products
     public void addProduct(Product p) {
@@ -79,8 +75,6 @@ public class InventoryService {
             }
         } catch (ProductNotFoundException e) {
             System.err.println("⚠ " + e.getMessage());
-        } catch (DatabaseException e) {
-
         }
     }
 
@@ -94,8 +88,6 @@ public class InventoryService {
             }
         } catch (ProductNotFoundException e) {
             System.err.println("⚠ " + e.getMessage());
-        } catch (DatabaseException e) {
-
         }
     }
 
@@ -136,21 +128,5 @@ public class InventoryService {
             System.err.println("❌ Failed to remove product. Reason: " + e.getMessage());
         }
     }
-    public static void exportInventoryToCSV(String filePath) {
-        CSVHelp csv = new CSVHelp();
-        try {
-            csv.exportProductsToCSV(filePath);
-        } catch (Exception e) {
-            System.out.println("⚠️ Could not export products: " + e.getMessage());
-        }
-    }
 
-//Users
-    public void addUser(User user) {
-        try {
-            userDao.addUser(user);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

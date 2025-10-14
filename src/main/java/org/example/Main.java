@@ -1,10 +1,14 @@
 package org.example;
 
 import org.example.Service.UserService;
+import org.example.dao.ProductDAO;
+import org.example.dao.ProductDAOImpl;
 import org.example.exception.InvalidProductException;
 import org.example.model.Product;
 import org.example.Service.InventoryService;
 import org.example.model.User;
+import org.example.dao.ProductDAO;
+import org.example.util.CSVHelper;
 
 import java.util.Scanner;
 
@@ -34,7 +38,7 @@ public class Main {
 
     public static void AdminMenu(Scanner sc) {
         InventoryService service = new InventoryService();
-
+        ProductDAOImpl dao= new ProductDAOImpl();
         while (true) {
             System.out.println("\n--- \uD83D\uDCE6Inventory Menu ---");
             System.out.println("1.✚ Add Product");
@@ -138,7 +142,8 @@ public class Main {
                     break;
 
                 case 6:
-                    service.exportInventoryToCSV("inventory.csv");
+                    var products=dao.getAllProducts();
+                    String filepath = CSVHelper.generateProductsReport(products,"Admin");
                     break;
 
                 case 7:
@@ -157,8 +162,7 @@ public class Main {
             System.out.println("\n--- \uD83D\uDCE6Inventory Menu ---");
             System.out.println("1.\uD83D\uDC41\uFE0FView All Products");
             System.out.println("2.\uD83D\uDD0ESearch Product");
-            System.out.println("3.\uD83D\uDCC1 CSV Report ");
-            System.out.println("4.\uD83D\uDEAA Exit");
+            System.out.println("3.\uD83D\uDEAA Exit");
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
             switch (choice) {
@@ -211,10 +215,6 @@ public class Main {
 
 
                 case 3:
-                    service.exportInventoryToCSV("inventory.csv");
-                    break;
-
-                case 4:
                     System.out.println("👋 Exiting...");
                     sc.close();
                     return;
