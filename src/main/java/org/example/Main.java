@@ -1,14 +1,13 @@
 package org.example;
 
 import org.example.Service.UserService;
-import org.example.dao.ProductDAO;
 import org.example.dao.ProductDAOImpl;
 import org.example.exception.InvalidProductException;
 import org.example.model.Product;
 import org.example.Service.InventoryService;
 import org.example.model.User;
-import org.example.dao.ProductDAO;
 import org.example.util.CSVHelper;
+import org.example.util.EmailUtil;
 
 import java.util.Scanner;
 
@@ -42,9 +41,9 @@ public class Main {
         while (true) {
             System.out.println("\n--- \uD83D\uDCE6Inventory Menu ---");
             System.out.println("1.✚ Add Product");
-            System.out.println("2.\uD83D\uDC41\uFE0FView All Products");
+            System.out.println("2.\uD83D\uDC41️View All Products");
             System.out.println("3.\uD83D\uDD0ESearch Product");
-            System.out.println("4.⬆\uFE0F Update Product");
+            System.out.println("4.⬆️ Update Product");
             System.out.println("5.❌ Delete Product");
             System.out.println("6.\uD83D\uDCC1 CSV Report ");
             System.out.println("7.\uD83D\uDEAA Exit");
@@ -88,7 +87,7 @@ public class Main {
                     switch (searchChoice) {
                         case 1:
                             System.out.print("Enter Product ID: ");
-                            int sid = 0;
+                            int sid;
                             try {
                                 sid = sc.nextInt();
                                 service.getProductById(sid);
@@ -144,6 +143,7 @@ public class Main {
                 case 6:
                     var products=dao.getAllProducts();
                     String filepath = CSVHelper.generateProductsReport(products,"Admin");
+                    EmailUtil.sendReport("admin@gmail.com", "Inventory Management Report","Attached is your latest Inventory Report",(filepath));
                     break;
 
                 case 7:
@@ -160,7 +160,7 @@ public class Main {
         InventoryService service = new InventoryService();
         while (true) {
             System.out.println("\n--- \uD83D\uDCE6Inventory Menu ---");
-            System.out.println("1.\uD83D\uDC41\uFE0FView All Products");
+            System.out.println("1.\uD83D\uDC41️View All Products");
             System.out.println("2.\uD83D\uDD0ESearch Product");
             System.out.println("3.\uD83D\uDEAA Exit");
             System.out.print("Enter choice: ");
@@ -183,7 +183,7 @@ public class Main {
                     switch (searchChoice) {
                         case 1:
                             System.out.print("Enter Product ID: ");
-                            int sid = 0;
+                            int sid;
                             try {
                                 sid = sc.nextInt();
                                 service.getProductById(sid);

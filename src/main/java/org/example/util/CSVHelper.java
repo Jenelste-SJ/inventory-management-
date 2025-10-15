@@ -30,7 +30,7 @@ public class CSVHelper {
                         new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
                 writer.println();
                 writer.println("ID,Name,Category,Quantity,Price");
-                writer.println("------------------");
+                writer.println();
                 if (products != null && !products.isEmpty()) {
                     for (Product p : products) {
                         writer.println(p.getId() + "," +
@@ -42,7 +42,7 @@ public class CSVHelper {
                 } else {
                     writer.println("No products available.");
                 }
-                writer.println("-----------------");
+                writer.println();
                 writer.println("Total Products: " + (products != null ? products.size() : 0));
                 System.out.println("✔ Report saved successfully: " + fileName);
 
