@@ -1,6 +1,7 @@
 package org.example.dao;
 
 import org.example.exception.DatabaseException;
+import org.example.exception.InvalidProductException;
 import org.example.model.Product;
 import org.example.util.DBConnection;
 
@@ -147,7 +148,6 @@ public class ProductDAOImpl implements ProductDAO {
         } catch (SQLException e) {
             throw new DatabaseException("Error retrieving products by price range", e);
         }
-
         return list;
     }
 

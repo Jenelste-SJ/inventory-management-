@@ -21,8 +21,7 @@ public class Main {
         System.out.println("==========================================");
         System.out.println("🛒  WELCOME TO INVENTORY MANAGEMENT SYSTEM");
         System.out.println("==========================================");
-        boolean exit = false;
-        while (!exit) {
+        while (true) {
             System.out.println("\n🌐 MAIN MENU");
             System.out.println("1️⃣  Login");
             System.out.println("2️⃣  Register");
@@ -59,7 +58,7 @@ public class Main {
                     System.out.print("🔑 Choose a Password: ");
                     String password = sc.nextLine();
 
-                    User newUser = new User(username, password, "Customer");
+                    User newUser = new User(username, password, "User");
                     userDAO.addUser(newUser);
 
                     System.out.println("🎉 Registration successful! You can now log in.");
@@ -81,8 +80,7 @@ public class Main {
     public static void AdminMenu(Scanner sc) {
         InventoryService service = new InventoryService();
         ProductDAOImpl dao = new ProductDAOImpl();
-        boolean exit = true;
-        while (exit) {
+        while (true) {
             System.out.println("\n========================");
             System.out.println("🧑‍💼 ADMIN DASHBOARD");
             System.out.println("========================");
@@ -190,7 +188,6 @@ public class Main {
 
                 case 7 -> {
                     System.out.println("👋 Logging out of Admin Dashboard...");
-                     exit=true;
                     return;
                 }
 

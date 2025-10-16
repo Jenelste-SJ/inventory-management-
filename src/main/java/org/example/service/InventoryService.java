@@ -85,7 +85,7 @@ public class InventoryService {
     public void getProductByPriceRange(double minPrice, double maxPrice) {
         try {
             List<Product> p = dao.getProductByPriceRange( minPrice,maxPrice);
-            if (p != null) {
+            if (p != null || !p.isEmpty()) {
                 System.out.println("Product Found: " + p);
             } else {
                 System.out.println("⚠️ Product not found!");
