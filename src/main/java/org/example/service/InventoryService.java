@@ -1,4 +1,4 @@
-package org.example.Service;
+package org.example.service;
 
 import org.example.dao.ProductDAOImpl;
 import org.example.exception.DatabaseException;
@@ -26,7 +26,11 @@ public class InventoryService {
                 System.out.println("⚠ No products available.");
             } else {
                 System.out.println("---- 📦Product List ----");
-                products.forEach(System.out::println);
+                System.out.printf("%-5s %-15s %-15s %-10s %-10s%n", "ID", "Name", "Category", "Quantity", "Price");
+                System.out.println("-----------------------------------------------------------");
+                products.forEach(p ->
+                        System.out.printf("%-5d %-15s %-15s %-10d %-10.2f%n",
+                                p.getId(), p.getName(), p.getCategory(), p.getQuantity(), p.getPrice()));
             }
         } catch (DatabaseException e) {
             System.err.println("❌ Failed to fetch products. Reason: " + e.getMessage());

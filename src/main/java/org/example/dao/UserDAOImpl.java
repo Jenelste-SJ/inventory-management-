@@ -7,13 +7,16 @@ import java.sql.*;
 
 
 public class UserDAOImpl implements UserDAO {
-    public void addUser(User user) {
-        String sql = "INSERT INTO user VALUES (?,?,?)";
+
+
+    public void addUser(User user)
+    {
+        String sql = "INSERT INTO user(username, password, role) VALUES (?,?,?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, "username");
-            stmt.setString(2, "password");
-            stmt.setString(3, "role");
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getRole());
 
             stmt.executeUpdate();
             System.out.println(" User successfully inserted");
@@ -21,6 +24,7 @@ public class UserDAOImpl implements UserDAO {
             System.out.println("User insertion failed");
         }
     }
+
 
     public User getUserByName(String username) {
         String sql = "SELECT * FROM user where username=(?)";

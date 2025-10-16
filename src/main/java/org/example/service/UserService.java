@@ -1,4 +1,4 @@
-package org.example.Service;
+package org.example.service;
 
 import org.example.dao.UserDAO;
 import org.example.dao.UserDAOImpl;
@@ -20,7 +20,7 @@ public class UserService {
                 return null;
             }
             if (user.getPassword().equals(password)) {
-                System.out.println("Login Successful!Welcome "+user.getUsername());
+                System.out.println("✅ Login successful! Welcome, " + user.getUsername() + " 👋");
                 System.out.println("User Role:"+user.getRole());
                 return user;
             }
