@@ -8,8 +8,9 @@ public class Product {
     private String category;
     private int quantity;
     private double price;
+    private int threshold;
 
-    public Product(int id, String name, String category, int quantity, double price) {
+    public Product(int id, String name, String category, int quantity, double price, int threshold) {
         if (id <= 0 )
             throw new InvalidProductException("❌ ID must be greater than 0.");
         if (name == null || name.trim().isEmpty())
@@ -26,6 +27,7 @@ public class Product {
         this.category = category;
         this.quantity = quantity;
         this.price = price;
+        this.threshold = threshold;
     }
 
     // Getters & Setters
@@ -34,6 +36,13 @@ public class Product {
     public String getCategory() { return category; }
     public int getQuantity() { return quantity; }
     public double getPrice() { return price; }
+    public int getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(int threshold) {
+        this.threshold = threshold;
+    }
 
     public void setId(int id) { this.id = id; }
     public void setName(String name) { this.name = name; }
@@ -43,6 +52,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return  "\n"+id + " | " + name + " | " + category + " | " + quantity + " | " + price ;
+        return  "\n"+id + " | " + name + " | " + category + " | " + quantity + " | " + price + " | " + threshold;
     }
 }

@@ -13,7 +13,7 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public void addProduct(Product product) {
-        String sql = "INSERT INTO products (id, name, category, quantity, price) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO products (id, name, category, quantity, price, threshold) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -22,6 +22,7 @@ public class ProductDAOImpl implements ProductDAO {
             stmt.setString(3, product.getCategory());
             stmt.setInt(4, product.getQuantity());
             stmt.setDouble(5, product.getPrice());
+            stmt.setInt(6, product.getThreshold());
 
             stmt.executeUpdate();
             System.out.println("✅ Product added successfully.");
@@ -44,7 +45,8 @@ public class ProductDAOImpl implements ProductDAO {
                         rs.getString("name"),
                         rs.getString("category"),
                         rs.getInt("quantity"),
-                        rs.getDouble("price")
+                        rs.getDouble("price"),
+                        rs.getInt("threshold")
                 ));
             }
         } catch (Exception e) {
@@ -67,7 +69,8 @@ public class ProductDAOImpl implements ProductDAO {
                         rs.getString("name"),
                         rs.getString("category"),
                         rs.getInt("quantity"),
-                        rs.getDouble("price")
+                        rs.getDouble("price"),
+                        rs.getInt("threshold")
                 );
             }
         } catch (Exception e) {
@@ -90,7 +93,8 @@ public class ProductDAOImpl implements ProductDAO {
                         rs.getString("name"),
                         rs.getString("category"),
                         rs.getInt("quantity"),
-                        rs.getDouble("price")
+                        rs.getDouble("price"),
+                        rs.getInt("threshold")
                 ));
             }
         } catch (Exception e) {
@@ -113,7 +117,8 @@ public class ProductDAOImpl implements ProductDAO {
                         rs.getString("name"),
                         rs.getString("category"),
                         rs.getInt("quantity"),
-                        rs.getDouble("price")
+                        rs.getDouble("price"),
+                        rs.getInt("threshold")
                 ));
             }
         } catch (Exception e) {
@@ -141,7 +146,8 @@ public class ProductDAOImpl implements ProductDAO {
                         rs.getString("name"),
                         rs.getString("category"),
                         rs.getInt("quantity"),
-                        rs.getDouble("price")
+                        rs.getDouble("price"),
+                        rs.getInt("threshold")
                 ));
             }
 
@@ -153,7 +159,7 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public void updateProduct(Product product) {
-        String sql = "UPDATE products SET name=?, category=?, quantity=?, price=? WHERE id=?";
+        String sql = "UPDATE products SET name=?, category=?, quantity=?, price=? ,threshold=? WHERE id=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -161,7 +167,8 @@ public class ProductDAOImpl implements ProductDAO {
             stmt.setString(2, product.getCategory());
             stmt.setInt(3, product.getQuantity());
             stmt.setDouble(4, product.getPrice());
-            stmt.setInt(5, product.getId());
+            stmt.setInt(5, product.getThreshold());
+            stmt.setInt(6, product.getId());
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {
@@ -173,6 +180,8 @@ public class ProductDAOImpl implements ProductDAO {
             System.out.println("❌ Error updating product: " + e.getMessage());
         }
     }
+
+
 
     @Override
     public boolean deleteProduct(int id) {

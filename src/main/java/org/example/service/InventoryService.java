@@ -25,13 +25,15 @@ public class InventoryService {
             if (products.isEmpty()) {
                 System.out.println("⚠ No products available.");
             } else {
-                System.out.println("---- 📦Product List ----");
-                System.out.printf("%-5s %-15s %-15s %-10s %-10s%n", "ID", "Name", "Category", "Quantity", "Price");
-                System.out.println("-----------------------------------------------------------");
+                System.out.println("---- 📦 Product List ----");
+                System.out.printf("%-5s %-15s %-15s %-10s %-10s %-10s%n",
+                        "ID", "Name", "Category", "Quantity", "Price", "Threshold");
+                System.out.println("--------------------------------------------------------------------------");
                 products.forEach(p ->
-                        System.out.printf("%-5d %-15s %-15s %-10d %-10.2f%n",
-                                p.getId(), p.getName(), p.getCategory(), p.getQuantity(), p.getPrice()));
+                        System.out.printf("%-5d %-15s %-15s %-10d %-10.2f %-10d%n",
+                                p.getId(), p.getName(), p.getCategory(), p.getQuantity(), p.getPrice(), p.getThreshold()));
             }
+
         } catch (DatabaseException e) {
             System.err.println("❌ Failed to fetch products. Reason: " + e.getMessage());
         }
@@ -95,7 +97,7 @@ public class InventoryService {
         }
     }
 
-    public void updateProduct(int id, String name,String category, String quantity, String price) {
+    public void updateProduct(int id, String name,String category, String quantity, String price, String threshold) {
         try {
             Product p = dao.getProductById(id);
             if (p != null && !name.trim().isEmpty()) {
@@ -112,8 +114,11 @@ public class InventoryService {
                 int pp=Integer.parseInt(price);
                 p.setPrice(pp);
             }
+            if (p !=null  && !threshold.trim().isEmpty()){
+                int t=Integer.parseInt(threshold);
+                p.setThreshold(t);
+            }
             dao.updateProduct(p);
-            System.out.println("Product Updated successfully!");
         } catch (DatabaseException e) {
             System.err.println("❌ Error Updating the product.");
         }

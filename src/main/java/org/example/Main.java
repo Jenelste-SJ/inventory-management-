@@ -108,8 +108,9 @@ public class Main {
                         int qty = sc.nextInt();
                         System.out.print("💰 Price: ");
                         double price = sc.nextDouble();
-
-                        Product p = new Product(id, name, category, qty, price);
+                        System.out.print("𝍌 Threshold: ");
+                        int threshold = sc.nextInt();
+                        Product p = new Product(id, name, category, qty, price,threshold);
                         service.addProduct(p);
                     } catch (InvalidProductException e) {
                         System.out.println("⚠️ Invalid Product: " + e.getMessage());
@@ -169,7 +170,9 @@ public class Main {
                     String qty = sc.nextLine();
                     System.out.print("💰 New Price (or press Enter to skip): ");
                     String price = sc.nextLine();
-                    service.updateProduct(id, name, cat, qty, price);
+                    System.out.print("New Threshold (or press Enter to skip): ");
+                    String threshold = sc.nextLine();
+                    service.updateProduct(id, name, cat, qty, price,threshold);
                 }
 
                 case 5 -> {
