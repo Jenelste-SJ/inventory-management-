@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.service.InventoryService;
+import org.example.service.StockAlertService;
 import org.example.service.UserService;
 import org.example.dao.ProductDAOImpl;
 import org.example.dao.UserDAOImpl;
@@ -11,9 +12,14 @@ import org.example.util.CSVHelper;
 import org.example.util.EmailUtil;
 
 import java.util.Scanner;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
+
+
         Scanner sc = new Scanner(System.in);
         UserService userService = new UserService();
         UserDAOImpl userDAO = new UserDAOImpl();
@@ -44,11 +50,20 @@ public class Main {
                         System.out.println("❌ Invalid credentials! Please try again.");
                     } else {
                         if (user.getRole().equalsIgnoreCase("admin")) {
+                            System.out.println("✅ Stock alert scheduler started...\n");
+
+                            new Thread(() -> {
+                                StockAlertService alertService = new StockAlertService();
+                                ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+                                scheduler.scheduleAtFixedRate(alertService::checkStockAlerts, 10, 3, TimeUnit.MINUTES);
+                            }).start();
+
                             AdminMenu(sc);
                         } else {
                             UserMenu(sc);
                         }
                     }
+
                 }
 
                 case 2 -> {
