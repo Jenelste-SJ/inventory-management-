@@ -63,15 +63,15 @@ public class EmailUtil {
 
 
     public static void sendAlertEmail(String subject, String body) {
-        final String fromEmail = System.getenv("MAIL_USER");  // sender email
-        final String password = System.getenv("MAIL_PASS");   // app password
-        final String toEmail = "admin@gmail.com";             // recipient (admin)
+        final String fromEmail = System.getenv("MAIL_USER");  // your email
+        final String password = System.getenv("MAIL_PASS");   // your app password
 
         if (fromEmail == null || password == null) {
             throw new RuntimeException("❌ Email credentials not set in environment variables!");
         }
 
-        // SMTP setup
+        String toEmail = "jenelste@gmail.com"; // or dynamic admin mail
+
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
@@ -93,10 +93,10 @@ public class EmailUtil {
             message.setText(body);
 
             Transport.send(message);
-            System.out.println("📩 Stock alert email sent successfully to " + toEmail);
 
         } catch (Exception e) {
-            System.out.println("❌ Error sending stock alert email: " + e.getMessage());
+            System.out.println("❌ Error sending alert email: " + e.getMessage());
         }
     }
+
 }

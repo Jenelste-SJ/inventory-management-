@@ -29,7 +29,7 @@ public class CSVHelper {
                 writer.println("Generated On: " +
                         new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
                 writer.println();
-                writer.println("ID,Name,Category,Quantity,Price");
+                writer.println("ID,Name,Category,Quantity,Price,Threshold");
                 writer.println();
                 if (products != null && !products.isEmpty()) {
                     for (Product p : products) {
@@ -37,7 +37,8 @@ public class CSVHelper {
                                 p.getName() + "," +
                                 p.getCategory() + "," +
                                 p.getQuantity() + "," +
-                                p.getPrice());
+                                p.getPrice()+","+
+                                p.getThreshold());
                     }
                 } else {
                     writer.println("No products available.");

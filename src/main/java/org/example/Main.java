@@ -55,7 +55,7 @@ public class Main {
                             new Thread(() -> {
                                 StockAlertService alertService = new StockAlertService();
                                 ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-                                scheduler.scheduleAtFixedRate(alertService::checkStockAlerts, 10, 3, TimeUnit.MINUTES);
+                                scheduler.scheduleAtFixedRate(alertService::checkStockAlerts, 1, 60, TimeUnit.MINUTES);
                             }).start();
 
                             AdminMenu(sc);
