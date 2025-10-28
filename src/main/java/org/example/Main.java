@@ -31,8 +31,10 @@ public class Main {
             System.out.println("\n🌐 MAIN MENU");
             System.out.println("1️⃣  Login");
             System.out.println("2️⃣  Register");
-            System.out.println("3️⃣  Exit");
-            System.out.print("➡️  Enter your choice: ");
+            System.out.println("3️⃣  Verify Email");
+            System.out.println("4️⃣  Exit");
+            System.out.print("➡️ Enter your choice: ");
+
 
             int choice = sc.nextInt();
             sc.nextLine();
@@ -67,21 +69,27 @@ public class Main {
                 }
 
                 case 2 -> {
-                    System.out.println("\n📝 REGISTER NEW ACCOUNT");
-                    System.out.print("👤 Choose a Username: ");
+                    System.out.print("👤 Choose Username: ");
                     String username = sc.nextLine();
-                    System.out.print("🔑 Choose a Password: ");
+                    System.out.print("🔑 Choose Password: ");
                     String password = sc.nextLine();
+                    System.out.print("📧 Enter Email: ");
+                    String email = sc.nextLine();
 
-                    User newUser = new User(username, password, "User");
-                    userDAO.addUser(newUser);
-
-                    System.out.println("🎉 Registration successful! You can now log in.");
+                    userService.register(username, password, email);
                 }
 
                 case 3 -> {
-                    System.out.println("\n👋 Thank you for using the Inventory Management System!");
-                    System.out.println("💡 Have a great day!");
+                    System.out.print("👤 Enter Username: ");
+                    String username = sc.nextLine();
+                    System.out.print("📨 Enter OTP sent to your email: ");
+                    String otp = sc.nextLine();
+
+                    userService.verifyEmail(username, otp);
+                }
+
+                case 4 -> {
+                    System.out.println("👋 Thank you for using the Inventory System!");
                     sc.close();
                     return;
                 }

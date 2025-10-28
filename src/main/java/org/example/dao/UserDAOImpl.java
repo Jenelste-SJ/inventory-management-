@@ -3,50 +3,70 @@ package org.example.dao;
 import org.example.model.User;
 import org.example.util.DBConnection;
 
-import java.sql.*;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class UserDAOImpl implements UserDAO {
 
-
-    public void addUser(User user)
-    {
-        String sql = "INSERT INTO user(username, password, role) VALUES (?,?,?)";
+    @Override
+    public void addUser(User user) {
+        String sql = "INSERT INTO user (username, password, role, email, isVerified) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getPassword());
             stmt.setString(3, user.getRole());
-
+            stmt.setString(4, user.getEmail());
+            stmt.setBoolean(5, user.isVerified());
             stmt.executeUpdate();
-            System.out.println(" User successfully inserted");
+
+            System.out.println("✅ Registration successful! OTP sent to: " + user.getEmail());
         } catch (Exception e) {
-            System.out.println("User insertion failed");
+            System.out.println("❌ Error registering user: " + e.getMessage());
         }
     }
 
-
-    public User getUserByName(String username) {
-        String sql = "SELECT * FROM user where username=(?)";
+    @Override
+    public User getUserByUsername(String username) {
+        String sql = "SELECT * FROM user WHERE username = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, username);
 
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    return new User(
-                            rs.getInt("id"),
-                            rs.getString("username"),
-                            rs.getString("password"),
-                            rs.getString("role")
-                    );
-                }
-            } catch (Exception e) {
-                System.out.println("Error fetching User details" + e.getMessage());
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("role"),
+                        rs.getString("email"),
+                        rs.getBoolean("isVerified")
+                );
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
+        } catch (Exception e) {
+            System.out.println("❌ Error fetching user: " + e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public void updateUserVerificationStatus(String username, boolean status) {
+        String sql = "UPDATE user SET isVerified = ? WHERE username = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setBoolean(1, status);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
+
+            System.out.println("✅ Email verified successfully for: " + username);
+        } catch (Exception e) {
+            System.out.println("❌ Error updating verification status: " + e.getMessage());
+        }
     }
 }
