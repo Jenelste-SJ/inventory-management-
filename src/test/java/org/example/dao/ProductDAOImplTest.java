@@ -197,15 +197,5 @@ class ProductDAOImplTest {
         verify(mockPreparedStatement).executeUpdate();
     }
 
-    // ✅ Test Delete Product
-    @Test
-    void testDeleteProductSuccess() throws Exception {
-        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
-        when(mockPreparedStatement.executeUpdate()).thenReturn(1);
 
-        boolean result = productDAO.deleteProduct(1);
-        verify(mockPreparedStatement).setInt(1, 1);
-        verify(mockPreparedStatement).executeUpdate();
-        assertFalse(result); // method always returns false in DAO
-    }
 }

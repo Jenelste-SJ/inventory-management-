@@ -54,7 +54,7 @@ public class Main {
                         System.out.println("❌ Invalid credentials! Please try again.");
                     } else {
                         if (user.getRole().equalsIgnoreCase("admin")) {
-                            System.out.println("✅ Stock alert scheduler started...\n");
+                            System.out.println("\n✅ Stock alert scheduler started...\n");
 
                             new Thread(() -> {
                                 StockAlertService alertService = new StockAlertService();
@@ -102,6 +102,11 @@ public class Main {
             }
         }
     }
+
+
+
+
+
 
     // ==================== ADMIN MENU ====================
     public static void AdminMenu(Scanner sc) {
@@ -213,7 +218,6 @@ public class Main {
                     String filepath = CSVHelper.generateProductsReport(products, "Admin");
                     EmailUtil.sendReport("admin@gmail.com", "Inventory Management Report",
                             "Attached is your latest Inventory Report", filepath);
-                    System.out.println("📧 Report emailed successfully!");
                 }
 
                 case 7 -> {
@@ -225,6 +229,9 @@ public class Main {
             }
         }
     }
+
+
+
 
     // ==================== USER MENU ====================
     public static void UserMenu(Scanner sc) {
