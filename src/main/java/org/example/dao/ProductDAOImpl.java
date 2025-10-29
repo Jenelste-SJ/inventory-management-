@@ -199,6 +199,6 @@ public class ProductDAOImpl implements ProductDAO {
         } catch (Exception e) {
             System.out.println("❌ Error deleting product: " + e.getMessage());
         }
-        return false;
+        return true;
     }
 }

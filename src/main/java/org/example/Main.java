@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.service.InventoryService;
+import org.example.service.OTPService;
 import org.example.service.StockAlertService;
 import org.example.service.UserService;
 import org.example.dao.ProductDAOImpl;
@@ -32,7 +33,8 @@ public class Main {
             System.out.println("1️⃣  Login");
             System.out.println("2️⃣  Register");
             System.out.println("3️⃣  Verify Email");
-            System.out.println("4️⃣  Exit");
+            System.out.println("4️⃣  Resend OTP");
+            System.out.println("5️⃣  Exit");
             System.out.print("➡️ Enter your choice: ");
 
 
@@ -75,7 +77,6 @@ public class Main {
                     String password = sc.nextLine();
                     System.out.print("📧 Enter Email: ");
                     String email = sc.nextLine();
-
                     userService.register(username, password, email);
                 }
 
@@ -88,7 +89,10 @@ public class Main {
                     userService.verifyEmail(username, otp);
                 }
 
-                case 4 -> {
+                case 4->{
+                    userService.resendOTP();
+                }
+                case 5 -> {
                     System.out.println("👋 Thank you for using the Inventory System!");
                     sc.close();
                     return;

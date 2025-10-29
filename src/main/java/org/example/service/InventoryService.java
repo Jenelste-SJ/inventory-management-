@@ -127,12 +127,7 @@ public class InventoryService {
 
     public void deleteProduct(int id) {
         try {
-            boolean deleted = dao.deleteProduct(id);
-            if (deleted) {
-                System.out.println(" Product removed successfully!");
-            } else {
-                System.out.println("No product found with that ID!");
-            }
+            dao.deleteProduct(id);
         } catch (DatabaseException e) {
             System.err.println("❌ Failed to remove product. Reason: " + e.getMessage());
         }

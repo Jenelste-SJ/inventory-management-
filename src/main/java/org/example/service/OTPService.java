@@ -1,47 +1,43 @@
 package org.example.service;
 
 import org.example.util.EmailUtil;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 public class OTPService {
 
-    // Temporary in-memory OTP storage (email → otp)
+    // Temporary in-memory OTP storage
     private static final Map<String, String> otpStorage = new HashMap<>();
 
     /**
-     * Generates a 6-digit OTP, stores it, and sends it via email.
+     * Generates a 6-digit OTP, stores it temporarily, and sends it to the user's email.
      */
-    public static void generateAndSendOTP(String email) {
-        // Generate random 6-digit OTP
+    public static String generateOTP(String email) {
         String otp = String.format("%06d", new Random().nextInt(999999));
         otpStorage.put(email, otp);
 
-        // Send OTP via EmailUtil
-        try {
-            EmailUtil.sendOTPEmail(email, otp);
-            System.out.println("📩 OTP sent to " + email);
+        EmailUtil.sendOTPEmail(email, otp);
+        System.out.println("📩 OTP sent successfully to " + email);
 
-        } catch (Exception e) {
-            System.out.println("❌ Failed to send OTP to " + email + ": " + e.getMessage());
-        }
+        return otp;
     }
 
     /**
-     * Verifies if the entered OTP matches the one sent.
+     * Verifies the entered OTP for a given email.
      */
-    public static boolean verifyOTP(String email, String enteredOTP) {
-        String correctOTP = otpStorage.get(email);
+    public static boolean verifyOTP(String email, String enteredOtp) {
+        String storedOtp = otpStorage.get(email);
 
-        if (correctOTP != null && correctOTP.equals(enteredOTP)) {
-            otpStorage.remove(email); // Remove after successful verification
+        if (storedOtp != null && storedOtp.equals(enteredOtp)) {
+            otpStorage.remove(email); // remove once verified
             System.out.println("✅ OTP verified successfully for " + email);
             return true;
-        } else {
-            System.out.println("❌ Invalid OTP entered for " + email);
-            return false;
         }
+
+        System.out.println("❌ Invalid or expired OTP for " + email);
+        return false;
     }
 
 

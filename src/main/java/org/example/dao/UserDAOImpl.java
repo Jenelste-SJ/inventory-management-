@@ -22,7 +22,6 @@ public class UserDAOImpl implements UserDAO {
             stmt.setBoolean(5, user.isVerified());
             stmt.executeUpdate();
 
-            System.out.println("✅ Registration successful! OTP sent to: " + user.getEmail());
         } catch (Exception e) {
             System.out.println("❌ Error registering user: " + e.getMessage());
         }
@@ -50,6 +49,33 @@ public class UserDAOImpl implements UserDAO {
 
         } catch (Exception e) {
             System.out.println("❌ Error fetching user: " + e.getMessage());
+        }
+        return null;
+    }
+
+    // ✅ NEW: Fetch user by email (for OTP verification and resend)
+    @Override
+    public User getUserByEmail(String email) {
+        String sql = "SELECT * FROM user WHERE email = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("role"),
+                        rs.getString("email"),
+                        rs.getBoolean("isVerified")
+                );
+            }
+
+        } catch (Exception e) {
+            System.out.println("❌ Error fetching user by email: " + e.getMessage());
         }
         return null;
     }
