@@ -53,7 +53,7 @@ public class UserDAOImpl implements UserDAO {
         return null;
     }
 
-    // ✅ NEW: Fetch user by email (for OTP verification and resend)
+
     @Override
     public User getUserByEmail(String email) {
         String sql = "SELECT * FROM user WHERE email = ?";

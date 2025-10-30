@@ -1,11 +1,9 @@
 package org.example;
 
 import org.example.service.InventoryService;
-import org.example.service.OTPService;
 import org.example.service.StockAlertService;
 import org.example.service.UserService;
 import org.example.dao.ProductDAOImpl;
-import org.example.dao.UserDAOImpl;
 import org.example.exception.InvalidProductException;
 import org.example.model.Product;
 import org.example.model.User;
@@ -23,7 +21,6 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         UserService userService = new UserService();
-        UserDAOImpl userDAO = new UserDAOImpl();
 
         System.out.println("==========================================");
         System.out.println("🛒  WELCOME TO INVENTORY MANAGEMENT SYSTEM");
@@ -89,9 +86,8 @@ public class Main {
                     userService.verifyEmail(username, otp);
                 }
 
-                case 4->{
-                    userService.resendOTP();
-                }
+                case 4-> userService.resendOTP();
+
                 case 5 -> {
                     System.out.println("👋 Thank you for using the Inventory System!");
                     sc.close();

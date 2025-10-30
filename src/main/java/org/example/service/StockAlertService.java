@@ -32,7 +32,6 @@ public class StockAlertService {
 
             if (hasAlerts) {
 
-                // Send single consolidated email
                 String subject = "📊 Inventory Stock Alert Summary";
                 String body = "Dear Admin,\n\nThe following products are low in stock:\n\n" +
                         alertMessage +

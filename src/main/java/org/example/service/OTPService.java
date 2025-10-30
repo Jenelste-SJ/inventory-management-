@@ -8,12 +8,8 @@ import java.util.Random;
 
 public class OTPService {
 
-    // Temporary in-memory OTP storage
     private static final Map<String, String> otpStorage = new HashMap<>();
 
-    /**
-     * Generates a 6-digit OTP, stores it temporarily, and sends it to the user's email.
-     */
     public static String generateOTP(String email) {
         String otp = String.format("%06d", new Random().nextInt(999999));
         otpStorage.put(email, otp);
@@ -24,9 +20,6 @@ public class OTPService {
         return otp;
     }
 
-    /**
-     * Verifies the entered OTP for a given email.
-     */
     public static boolean verifyOTP(String email, String enteredOtp) {
         String storedOtp = otpStorage.get(email);
 

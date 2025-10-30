@@ -1,6 +1,5 @@
 package org.example.util;
 
-import org.example.dao.ProductDAOImpl;
 import org.example.model.Product;
 
 import java.io.FileWriter;

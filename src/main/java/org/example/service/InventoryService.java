@@ -10,7 +10,7 @@ import java.util.List;
 public class InventoryService {
     public ProductDAOImpl dao = new ProductDAOImpl();
 
-//Products
+
     public void addProduct(Product p) {
         try {
             dao.addProduct(p);

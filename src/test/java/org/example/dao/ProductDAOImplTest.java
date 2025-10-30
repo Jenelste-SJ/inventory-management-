@@ -1,6 +1,5 @@
 package org.example.dao;
 
-import org.example.exception.DatabaseException;
 import org.example.model.Product;
 import org.example.util.DBConnection;
 import org.junit.jupiter.api.AfterEach;

@@ -19,7 +19,6 @@ public class EmailUtil {
             throw new RuntimeException("❌ Email credentials not set in environment variables!");
         }
 
-        // SMTP configuration
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
@@ -113,7 +112,7 @@ public class EmailUtil {
             throw new RuntimeException("❌ Email credentials not set in environment variables!");
         }
 
-        String toEmail = "jenelste@gmail.com"; // or dynamic admin mail
+        String toEmail = "jenelste@gmail.com";
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
