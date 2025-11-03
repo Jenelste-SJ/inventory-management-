@@ -212,7 +212,7 @@ public class Main {
                 case 6 -> {
                     var products = dao.getAllProducts();
                     String filepath = CSVHelper.generateProductsReport(products, "Admin");
-                    EmailUtil.sendReport("admin@gmail.com", "Inventory Management Report",
+                    EmailUtil.sendReport(System.getenv("MAIL_USER"), "Inventory Management Report",
                             "Attached is your latest Inventory Report", filepath);
                 }
 

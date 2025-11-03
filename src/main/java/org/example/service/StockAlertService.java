@@ -20,7 +20,7 @@ public class StockAlertService {
                 if (p.getQuantity() <= p.getThreshold()) {
                     hasAlerts = true;
 
-                    int reorderQty = p.getThreshold() * 2; // your original logic
+                    int reorderQty = p.getThreshold() * 2;
 
                     alertMessage.append("⚠️ Low Stock Alert: ").append(p.getName()).append("\n")
                             .append("Current Qty: ").append(p.getQuantity()).append("\n")

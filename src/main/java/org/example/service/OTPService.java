@@ -24,12 +24,11 @@ public class OTPService {
         String storedOtp = otpStorage.get(email);
 
         if (storedOtp != null && storedOtp.equals(enteredOtp)) {
-            otpStorage.remove(email); // remove once verified
+            otpStorage.remove(email);
             System.out.println("✅ OTP verified successfully for " + email);
             return true;
         }
 
-        System.out.println("❌ Invalid or expired OTP for " + email);
         return false;
     }
 

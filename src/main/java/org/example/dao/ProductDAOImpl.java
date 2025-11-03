@@ -27,7 +27,7 @@ public class ProductDAOImpl implements ProductDAO {
             stmt.executeUpdate();
             System.out.println("✅ Product added successfully.");
         } catch (Exception e) {
-            System.out.println("❌ Error adding product:\n REASON:You can't add product with an already existing ID.❗️❗️USE A DIFFERENT ID ❗️❗️  " );
+            System.out.println("❌ Error adding product!!! You can't add product with an already existing ID.\n❗️❗️USE A DIFFERENT ID ❗️❗️  " );
         }
     }
 
@@ -177,7 +177,7 @@ public class ProductDAOImpl implements ProductDAO {
                 System.out.println("⚠️ Product not found.");
             }
         } catch (Exception e) {
-            System.out.println("❌ Error updating product: " + e.getMessage());
+            System.out.println("❌ Error updating product!Try updating using valid ID " );
         }
     }
 

@@ -90,7 +90,6 @@ public class UserDAOImpl implements UserDAO {
             stmt.setString(2, username);
             stmt.executeUpdate();
 
-            System.out.println("✅ Email verified successfully for: " + username);
         } catch (Exception e) {
             System.out.println("❌ Error updating verification status: " + e.getMessage());
         }

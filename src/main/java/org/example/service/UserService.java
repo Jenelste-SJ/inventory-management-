@@ -54,7 +54,7 @@ public class UserService {
             return;
         }
 
-        // Generate and send a new OTP
+
         String newOtp = OTPService.generateOTP(email);
         EmailUtil.sendOTPEmail(email, newOtp);
     }
@@ -70,7 +70,7 @@ public class UserService {
         if (OTPService.verifyOTP(user.getEmail(), otp)) {
             userDAO.updateUserVerificationStatus(username, true);
         } else {
-            System.out.println("❌ Invalid OTP! Please try again.");
+            System.out.println("❌ Invalid or expired OTP!Please try again. ");
         }
     }
 }
