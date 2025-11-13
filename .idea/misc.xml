@@ -8,6 +8,10 @@
       </list>
     </option>
   </component>
+  <component name="ProjectResources">
+    <resource url="http://maven.apache.org/POM/4.0.0" location="$PROJECT_DIR$" />
+    <resource url="https://maven.apache.org/xsd/maven-4.0.0.xsd" location="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>

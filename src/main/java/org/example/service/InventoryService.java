@@ -19,7 +19,7 @@ public class InventoryService {
         }
     }
 
-    public void getAllProducts() {
+    public List<Product> getAllProducts() {
         try {
             List<Product> products = dao.getAllProducts();
             if (products.isEmpty()) {
@@ -38,6 +38,7 @@ public class InventoryService {
             System.err.println("❌ Failed to fetch products. Reason: " + e.getMessage());
         }
 
+        return List.of();
     }
 
 
