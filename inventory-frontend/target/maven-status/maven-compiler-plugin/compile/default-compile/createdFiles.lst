@@ -1,0 +1,6 @@
+org/example/ui/AddProductController.class
+org/example/ui/EditProductController.class
+org/example/ui/AdminController.class
+org/example/ui/LoginController.class
+org/example/ui/MainApp.class
+org/example/ui/UserController.class

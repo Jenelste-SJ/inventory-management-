@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.ui.AdminController"
+            prefWidth="800" prefHeight="500"
+            style="-fx-padding: 20px;">
+<children>
+        <Label text="🧑‍💼 Admin Dashboard" layoutX="320" layoutY="10" style="-fx-font-size:18px; -fx-font-weight:bold;"/>
+        <TableView fx:id="productTable" layoutX="40" layoutY="50" prefWidth="720" prefHeight="330">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="60"/>
+                <TableColumn fx:id="nameColumn" text="Name" prefWidth="160"/>
+                <TableColumn fx:id="categoryColumn" text="Category" prefWidth="120"/>
+                <TableColumn fx:id="quantityColumn" text="Quantity" prefWidth="100"/>
+                <TableColumn fx:id="priceColumn" text="Price" prefWidth="120"/>
+                <TableColumn fx:id="thresholdColumn" text="Threshold" prefWidth="120"/>
+            </columns>
+        </TableView>
+
+        <Button text="🔄 Refresh" layoutX="40" layoutY="400" onAction="#handleRefresh"/>
+        <Button text="➕ Add" layoutX="140" layoutY="400" onAction="#openAddProductPopup"/>
+        <Button text="✏️ Edit" layoutX="220" layoutY="400" onAction="#handleEdit"/>
+        <Button text="🗑 Delete" layoutX="300" layoutY="400" onAction="#handleDelete"/>
+        <Button text="🚪 Logout" layoutX="660" layoutY="400" onAction="#handleLogout"/>
+    </children>
+</AnchorPane>
