@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.ui.AdminController"
+            prefWidth="900" prefHeight="600"
+            style="-fx-background-color: #f7f9fc; -fx-padding: 16;">
+    <children>
+        <Label text="🧑‍💼 Admin Dashboard" layoutX="340" layoutY="12"
+               style="-fx-font-size:20px; -fx-font-weight:bold;"/>
+
+        <TableView fx:id="productTable" layoutX="20" layoutY="60" prefWidth="860" prefHeight="420">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="70"/>
+                <TableColumn fx:id="nameColumn" text="Name" prefWidth="180"/>
+                <TableColumn fx:id="categoryColumn" text="Category" prefWidth="150"/>
+                <TableColumn fx:id="quantityColumn" text="Quantity" prefWidth="100"/>
+                <TableColumn fx:id="priceColumn" text="Price" prefWidth="120"/>
+                <TableColumn fx:id="thresholdColumn" text="Threshold" prefWidth="120"/>
+            </columns>
+        </TableView>
+
+        <HBox spacing="10" layoutX="20" layoutY="500">
+            <children>
+                <Button text="🔄 Refresh" onAction="#handleRefresh" />
+                <Button text="➕ Add" onAction="#openAddProductPopup" />
+                <Button text="✏️ Edit" onAction="#handleEdit" />
+                <Button text="🗑 Delete" onAction="#handleDelete" />
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="📄 Generate CSV" onAction="#handleExportCsv"/>
+                <Button text="🚪 Logout" onAction="#handleLogout" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

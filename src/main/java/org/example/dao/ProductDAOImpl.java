@@ -201,4 +201,35 @@ public class ProductDAOImpl implements ProductDAO {
         }
         return true;
     }
+
+    public List<Product> searchProductsByName(String name) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM products WHERE name LIKE ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + name + "%");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Product p = new Product(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("category"),
+                        rs.getInt("quantity"),
+                        rs.getDouble("price"),
+                        rs.getInt("threshold")
+                );
+                list.add(p);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DatabaseException("Search failed: " + e.getMessage());
+        }
+
+        return list;
+    }
+
 }

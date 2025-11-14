@@ -5,6 +5,7 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeMultipart;
+import org.example.ui.ServiceLocator;
 
 import java.io.File;
 import java.util.Properties;
@@ -112,7 +113,13 @@ public class EmailUtil {
             throw new RuntimeException("❌ Email credentials not set in environment variables!");
         }
 
-        String toEmail = "jenelste@gmail.com";
+        String toEmail = ServiceLocator.getLoggedInEmail();
+
+        if (toEmail == null || toEmail.isEmpty()) {
+            System.out.println("❌ No logged-in email found!");
+            return;
+        }
+
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");

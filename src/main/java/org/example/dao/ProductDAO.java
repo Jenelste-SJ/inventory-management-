@@ -13,4 +13,5 @@ public interface ProductDAO {
     List<Product> getProductByPriceRange(double minPrice, double maxPrice);
     void updateProduct(Product product);
     boolean deleteProduct(int id);
+     List<Product> searchProductsByName(String name);
 }

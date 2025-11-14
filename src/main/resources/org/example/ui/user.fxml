@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.ui.UserController"
+            prefWidth="900" prefHeight="600"
+            style="-fx-padding: 20px;">
+
+
+    <!-- TITLE -->
+    <Label text="👤 User Dashboard"
+           layoutX="350" layoutY="10"
+           style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+    <!-- SEARCH BAR -->
+    <HBox spacing="10" layoutX="40" layoutY="60">
+        <children>
+            <ComboBox fx:id="searchTypeBox" prefWidth="150"/>
+            <TextField fx:id="searchField" promptText="Enter search value" prefWidth="200"/>
+            <Button text="🔍 Search" onAction="#handleSearch"/>
+            <Button text="🔄 Reset" onAction="#handleReset"/>
+        </children>
+    </HBox>
+
+    <!-- TABLE -->
+    <TableView fx:id="productTable" layoutX="40" layoutY="120"
+               prefWidth="820" prefHeight="380">
+
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="70"/>
+            <TableColumn fx:id="nameColumn" text="Name" prefWidth="150"/>
+            <TableColumn fx:id="categoryColumn" text="Category" prefWidth="150"/>
+            <TableColumn fx:id="quantityColumn" text="Qty" prefWidth="80"/>
+            <TableColumn fx:id="priceColumn" text="Price" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <!-- LOGOUT -->
+    <Button text="🚪 Logout" layoutX="780" layoutY="520" onAction="#handleLogout"/>
+
+</AnchorPane>
