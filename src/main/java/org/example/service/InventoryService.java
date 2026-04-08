@@ -4,7 +4,7 @@ import org.example.dao.ProductDAOImpl;
 import org.example.exception.DatabaseException;
 import org.example.exception.ProductNotFoundException;
 import org.example.model.Product;
-import org.example.ui.ServiceLocator;
+
 import org.example.util.CSVHelper;
 import org.example.util.EmailUtil;
 
@@ -67,34 +67,46 @@ public class InventoryService {
         return dao.getProductById(id);
     }
 
-    public Product getProductByName(String name) {
+    public List<Product> getProductByName(String name) {
         try {
-            List<Product> p = dao.getProductByName(name);
-            if (p != null) {
-                System.out.println("Product Found: " + p );
-            } else {
+            List<Product> products = dao.getProductByName(name);
+
+            if (products == null || products.isEmpty()) {
                 System.out.println("⚠️ Product not found!");
+            } else {
+                System.out.println("Product Found: " + products);
             }
+
+            return products;
+
         } catch (ProductNotFoundException e) {
             System.err.println("⚠ " + e.getMessage());
         } catch (DatabaseException e) {
             System.err.println("❌ Error searching product. Reason: " + e.getMessage());
         }
-        return (Product) dao.getProductByName(name);
+
+        return new ArrayList<>();
     }
 
-    public Product getProductByCategory(String category) {
+    public List<Product> getProductByCategory(String category) {
         try {
-            List<Product> p = dao.getProductByCategory(category);
-            if (p != null) {
-                System.out.println("Product Found: " + p);
-            } else {
+            List<Product> products = dao.getProductByCategory(category);
+
+            if (products == null || products.isEmpty()) {
                 System.out.println("⚠️ Product not found!");
+            } else {
+                System.out.println("Product Found: " + products);
             }
+
+            return products;
+
         } catch (ProductNotFoundException e) {
             System.err.println("⚠ " + e.getMessage());
+        } catch (DatabaseException e) {
+            System.err.println("❌ Error searching product. Reason: " + e.getMessage());
         }
-        return (Product) dao.getProductByCategory(category);
+
+        return new ArrayList<>();
     }
 
     public Product getProductByPriceRange(double minPrice, double maxPrice) {
@@ -164,29 +176,29 @@ public class InventoryService {
         }
     }
 
-    public String exportCSV() {
+    public String exportCSV(String email) {
         try {
-            String email = ServiceLocator.getLoggedInEmail();
-            if (email == null) email = "Unknown";
+            if (email == null || email.isEmpty()) {
+                email = "Unknown";
+            }
 
-            // Step 1 – Generate CSV using your CSVHelper
+            // Step 1 – Generate CSV
             String path = CSVHelper.generateProductsReport(dao.getAllProducts(), email);
 
             if (path == null) {
                 throw new RuntimeException("CSV generation failed!");
             }
 
-            // Step 2 – Email CSV report to the logged-in email
-            String receiver = ServiceLocator.getLoggedInEmail();
-            if (receiver != null && !receiver.isEmpty()) {
+            // Step 2 – Email CSV report
+            if (email.contains("@")) {
                 EmailUtil.sendReport(
-                        receiver,
+                        email,
                         "📦 Inventory Report",
                         "Hi,\n\nYour inventory CSV report has been generated.\nPlease find the attachment.\n\nRegards,\nInventory System",
                         path
                 );
             } else {
-                System.out.println("⚠ No logged-in email found. Email not sent.");
+                System.out.println("⚠ Invalid email. Email not sent.");
             }
 
             return path;

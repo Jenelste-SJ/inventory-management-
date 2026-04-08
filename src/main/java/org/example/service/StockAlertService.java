@@ -37,7 +37,7 @@ public class StockAlertService {
                         alertMessage +
                         "\nPlease restock accordingly.\n\n- Inventory Management System";
 
-                EmailUtil.sendAlertEmail(subject, body);
+                EmailUtil.sendAlertEmail("your_email@gmail.com", subject, body);
                 System.out.println("📩 Consolidated stock alert email sent successfully!");
             } else {
                 System.out.println("✅ All products have sufficient stock levels.");
